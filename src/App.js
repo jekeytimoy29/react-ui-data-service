@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import api from "./api/axios-config";
+import { useState, useEffect } from "react";
+import Layout from "./component/Layout";
+import Home from "./component/home/Home";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
+  const [messages, setMessages] = useState();
+
+  const getMessages = async () => {
+    try {
+      const response = await api.get("/datainput/messages");
+
+      setMessages(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getMessages();
+  });
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="/" element={<Home messages={messages} />}></Route>
+        </Route>
+      </Routes>
     </div>
   );
 }

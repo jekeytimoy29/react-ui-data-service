@@ -1,0 +1,16 @@
+.main-component {
+  padding: 2%;
+}
+
+.button-container {
+  margin: 1%;
+  text-align: left;
+}
+
+.message-container {
+  margin: 1%;
+  text-align: left;
+  height: 600px;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+}
